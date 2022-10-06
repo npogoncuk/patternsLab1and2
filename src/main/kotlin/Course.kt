@@ -9,6 +9,8 @@ class Course(
     val assignments: List<Assignment>,
     private var limit: Int
 ) {
+    var professor: Professor? = null
+
     private val students: MutableList<Student> = mutableListOf()
 
     fun addStudent(student: Student) = if (students.size < limit && LocalDateTime.now() < endDate) students.add(student) else false

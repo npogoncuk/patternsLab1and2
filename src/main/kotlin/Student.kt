@@ -6,19 +6,22 @@ data class Student(
     val studentNumber: Int,
     var averageMark: Double
 ) {
-    private val courses: MutableList<Course> = mutableListOf()
+    private val coursesProgressToCourse = mutableMapOf<Course, CourseProgress>()
+    fun takenCourses(): List<Course> = coursesProgressToCourse.map { it.key }
+    val coursesProgresses: List<CourseProgress> get() = coursesProgressToCourse.values.toList()
 
-    fun takenCourses(): List<Course> = courses
 
     fun enroll(course: Course): Boolean {
         val success = course.addStudent(this)
-        if (success) courses.add(course)
+        val mapAssignmentToMark = mutableMapOf<Assignment, Double>()
+        course.assignments.map { mapAssignmentToMark[it.copy()] = .0 }
+        if (success) coursesProgressToCourse[course] = CourseProgress(receivedMarks = mapAssignmentToMark)
         return success
     }
 
     fun unenroll(course: Course): Boolean {
-        val success = courses.remove(course)
-        if (success) courses.remove(course)
+        val success = course.removeStudent(this)
+        if (success) coursesProgressToCourse.remove(course)
         return success
     }
 

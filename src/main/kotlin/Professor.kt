@@ -9,8 +9,6 @@ data class Professor(
     val salary: Double
     )
 
-fun Professor.checkAssignment(completedAssignment: Map<LocalDateTime, Assignment>) {
-    for (assignment in completedAssignment.values) {
-        assignment.mark = Random.nextDouble() * 100
-    }
+fun Professor.checkAssignment(vararg assignments: Assignment) {
+    for (assignment in assignments) assignment.mark  = Random.nextDouble() * 100
 }

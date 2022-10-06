@@ -1,9 +1,9 @@
 import java.time.LocalDateTime
 
 class CourseProgress(
-    val receivedMarks: Map<Assignment, Double>,
-    val visitedLectures: Int,
-    val completedAssignment: Map<LocalDateTime, Assignment>,
+    val receivedMarks: Map<Assignment, Double> = mutableMapOf(),
+    val visitedLectures: Int = 0,
+    val completedAssignment: Map<LocalDateTime, Assignment> = mutableMapOf(),
     val notes: MutableList<Note> = mutableListOf()
 ) {
 
