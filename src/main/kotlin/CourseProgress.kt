@@ -4,7 +4,7 @@ class CourseProgress(
     val receivedMarks: Map<Assignment, Double> = mutableMapOf(),
     val visitedLectures: Int = 0,
     val completedAssignment: Map<LocalDateTime, Assignment> = mutableMapOf(),
-    val notes: MutableList<Note> = mutableListOf()
+    val notes: MutableList<String> = mutableListOf()
 ) {
 
     fun progressToDate(date: LocalDateTime): String {
@@ -19,9 +19,9 @@ class CourseProgress(
     get() = completedAssignment.values.map { it.mark }.average()
 
     fun addNote(description: String) {
-        notes.add(Note(LocalDateTime.now(), description))
+        notes.add(description)
     }
-    fun removeNote(date: LocalDateTime) {
-        notes.removeIf { it.date == date }
+    fun removeNotes() {
+        notes.clear()
     }
 }

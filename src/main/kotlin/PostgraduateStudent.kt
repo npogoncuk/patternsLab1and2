@@ -1,6 +1,4 @@
-class Student(
-    val personalInfo: PersonalInfo
-) : Staff(personalInfo){
+class PostgraduateStudent(val personalInfo: PersonalInfo,val  phdStatus: String): Staff(personalInfo) {
 
     override fun askSickLeave(department: Department): Boolean {
         return department.addRequest("Student $this asks for sick leave")
@@ -10,7 +8,7 @@ class Student(
         return department.addRequest("Student $this asks for special request")
     }
 
-    val assignments = mutableListOf<Assignment>()
-    val avarageMark
-    get() = assignments.map { it.mark }.average()
+    override fun toString(): String {
+        return "PostgraduateStudent(personalInfo=$personalInfo, phdStatus='$phdStatus')"
+    }
 }

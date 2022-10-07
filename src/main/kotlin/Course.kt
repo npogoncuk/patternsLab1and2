@@ -6,15 +6,10 @@ class Course(
     val endDate: LocalDateTime,
     val description: String,
     val lectures: List<String>,
-    val assignments: List<Assignment>,
-    private var limit: Int
+    val limit: Int,
+    val seminars: List<Seminar>
 ) {
-    var professor: Professor? = null
-
-    private val students: MutableList<Student> = mutableListOf()
-
-    fun addStudent(student: Student) = if (students.size < limit && LocalDateTime.now() < endDate) students.add(student) else false
-
-    fun removeStudent(student: Student) = students.remove(student)
+    fun addStudent(enrollment: Enrollment) = enrollment.enroll()
+    fun removeStudent(enrollment: Enrollment) = enrollment.unenroll()
 
 }
