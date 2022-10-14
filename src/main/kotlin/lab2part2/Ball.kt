@@ -12,12 +12,13 @@ class Ball(
     velocity: Int,
     direction: Int
 ) {
-    var direction: Int by IntervalDelegate(0, -180, 180)
+    private var direction: Int by IntervalDelegate(0, -180, 180)
     val centerX get() = x
     val centerY get() = y
 
     init {
-        if (radius <= 0) throw IllegalArgumentException("Radius mast be bigger than 0")
+        if (radius <= 0) throw IllegalArgumentException("Radius must be bigger than 0")
+        if (direction < -180 || direction > 180) throw IllegalArgumentException("Direction must be in range[-180, 180]")
         this.direction = direction
     }
 
@@ -40,7 +41,6 @@ class Ball(
     override fun toString(): String {
         return "Ball(x=$x, y=$y, radius=$radius)"
     }
-
 
 }
 
