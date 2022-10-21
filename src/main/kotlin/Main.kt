@@ -1,5 +1,5 @@
+import java.time.DayOfWeek
 import java.time.LocalDateTime
-import java.time.Month
 
 fun main() {
 //    val nazar1 = Student("Nazar1", "Pohonchuk", "123", "123@at.com", 1, 90.9)
@@ -50,25 +50,32 @@ fun main() {
     val nazar = Student(PersonalInfo(1, "nazar", "pohonchuk", "nAdress", "+38000", "n@e.com", 1, "student", .0))
     val sasha = Student(PersonalInfo(2, "sasha", "pohonchuk", "sAdress", "+38001", "S@e.com", 1, "student", .0))
 
-    val assignments1 = listOf(
-        Assignment("asgn1", description = "do task1"),
-        Assignment("asgn2", description = "do task2"),
-        Assignment("asgn3", description = "do task3")
-    )
-    val assignments2 = listOf(
-        Assignment("asgn4", description = "do task4"),
-        Assignment("asgn5", description = "do task5"),
-        Assignment("asgn6", description = "do task6")
-    )
-    val seminars = listOf(
-        Seminar(1, "seminar1", LocalDateTime.of(2022, Month.DECEMBER, 1, 0, 0), assignments1,"status", "test"),
-        Seminar(2, "seminar2", LocalDateTime.of(2022, Month.DECEMBER, 1, 0, 0), assignments2,"status", "test")
-    )
-    val professor = Professor(PersonalInfo(3, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99))
-    val course = Course("Physics", LocalDateTime.of(2022, Month.SEPTEMBER, 1, 0, 0),
-    LocalDateTime.of(2022, Month.DECEMBER, 25, 0, 0), "desc", listOf(), 3,
-    seminars)
-
+//    val assignments1 = listOf(
+//        Assignment("asgn1", description = "do task1"),
+//        Assignment("asgn2", description = "do task2"),
+//        Assignment("asgn3", description = "do task3")
+//    )
+//    val assignments2 = listOf(
+//        Assignment("asgn4", description = "do task4"),
+//        Assignment("asgn5", description = "do task5"),
+//        Assignment("asgn6", description = "do task6")
+//    )
+//    val seminars = listOf(
+//        Seminar(1, "seminar1", LocalDateTime.of(2022, Month.DECEMBER, 1, 0, 0), assignments1,"status", "test"),
+//        Seminar(2, "seminar2", LocalDateTime.of(2022, Month.DECEMBER, 1, 0, 0), assignments2,"status", "test")
+//    )
+//    val professor = MathProfessor(PersonalInfo(3, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99))
+//    val course = Course("Physics", LocalDateTime.of(2022, Month.SEPTEMBER, 1, 0, 0),
+//    LocalDateTime.of(2022, Month.DECEMBER, 25, 0, 0), "desc", listOf(), 3,
+//    seminars)
+    val course: Course
+    val professor: Professor = when(LocalDateTime.now().dayOfWeek) {
+        DayOfWeek.MONDAY -> MathProfessor(PersonalInfo(3, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99))
+        DayOfWeek.FRIDAY -> ProgrammingProfessor((PersonalInfo(4, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99)))
+        else -> AlgorithmsProfessor((PersonalInfo(5, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99)))
+    }
+    course = professor.createCourse()
+    println("Created Course: $course")
     val enrollment = Enrollment(course, nazar)
     enrollment.enroll()
     enrollment.student = sasha

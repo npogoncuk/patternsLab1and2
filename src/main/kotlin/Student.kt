@@ -10,7 +10,13 @@ class Student(
         return department.addRequest("Student $this asks for special request")
     }
 
+    override fun toString(): String {
+        return "Student(personalInfo=$personalInfo)"
+    }
+
     val assignments = mutableListOf<Assignment>()
     val avarageMark
     get() = assignments.map { it.mark }.average()
+
+
 }

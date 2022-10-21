@@ -1,9 +1,9 @@
-import java.time.LocalDateTime
 import kotlin.random.Random
 
-class Professor(
-    val personalInfo: PersonalInfo
-    ) : Staff(personalInfo){
+abstract class Professor(
+    personalInfo: PersonalInfo
+    ) : Staff(personalInfo) {
+     abstract fun createCourse(): Course
     override fun askSickLeave(department: Department): Boolean {
         return department.addRequest("Professor $this asks for sick leave")
     }
@@ -18,6 +18,10 @@ class Professor(
 
     fun requestSupport() {
 
+    }
+
+    fun doSomethingWithCreatedCourse() {
+        println("I'm doing something with course")
     }
 
 }

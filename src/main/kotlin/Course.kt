@@ -1,6 +1,6 @@
 import java.time.LocalDateTime
 
-class Course(
+abstract class Course(
     val title: String,
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
@@ -11,5 +11,9 @@ class Course(
 ) {
     fun addStudent(enrollment: Enrollment) = enrollment.enroll()
     fun removeStudent(enrollment: Enrollment) = enrollment.unenroll()
+    override fun toString(): String {
+        return "Course(title='$title', startDate=$startDate, endDate=$endDate, description='$description', lectures=$lectures, limit=$limit, seminars=$seminars)"
+    }
+
 
 }
