@@ -1,3 +1,7 @@
+import factory.AbstractFactory
+import factory.DefaultGroupProfessorFactory
+import factory.FridayGroupProfessorFactory
+import factory.MondayGroupProfessorFactory
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 
@@ -69,17 +73,26 @@ fun main() {
 //    LocalDateTime.of(2022, Month.DECEMBER, 25, 0, 0), "desc", listOf(), 3,
 //    seminars)
     val course: Course
-    val professor: Professor = when(LocalDateTime.now().dayOfWeek) {
-        DayOfWeek.MONDAY -> MathProfessor(PersonalInfo(3, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99))
-        DayOfWeek.FRIDAY -> ProgrammingProfessor((PersonalInfo(4, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99)))
-        else -> AlgorithmsProfessor((PersonalInfo(5, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99)))
+    val professor: Professor
+//    = when(LocalDateTime.now().dayOfWeek) {
+//        DayOfWeek.MONDAY -> MathProfessor(PersonalInfo(3, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99))
+//        DayOfWeek.FRIDAY -> ProgrammingProfessor((PersonalInfo(4, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99)))
+//        else -> AlgorithmsProfessor((PersonalInfo(5, "Oleh", "Sinkevych", "OlehAdress", "+38999", "ohel@e.com",2,"lecturere", 999_999.99)))
+//    }
+//    course = professor.createCourse()
+    val factory: AbstractFactory = when(LocalDateTime.now().dayOfWeek) {
+        DayOfWeek.MONDAY -> MondayGroupProfessorFactory()
+        DayOfWeek.FRIDAY -> FridayGroupProfessorFactory()
+        else -> DefaultGroupProfessorFactory()
     }
+    val group = factory.createGroup()
+    professor = factory.createProfessor()
     course = professor.createCourse()
     println("Created Course: $course")
-    val enrollment = Enrollment(course, nazar)
-    enrollment.enroll()
-    enrollment.student = sasha
-    enrollment.enroll()
+    for (student in group.students) {
+        val enrollment = Enrollment(course, student)
+        enrollment.enroll()
+    }
     professor.checkAssignment(nazar)
     professor.checkAssignment(sasha)
 }
